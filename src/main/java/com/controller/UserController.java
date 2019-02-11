@@ -27,13 +27,13 @@ public class UserController {
 	
 	@RequestMapping(value="/all", method=RequestMethod.GET)
 	public ResponseEntity<List<User>> getAllToDo(){
-    	logger.info("Returning all the ToDo´s");
+    	logger.info("Returning all the ID´s");
 		return new ResponseEntity<List<User>>(webController.findAll(), HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
 	public Optional<User> geById(@PathVariable("id") long id) throws UserException{
-    	logger.info("ToDo id to return " + id);
+    	logger.info("User ID to return " + id);
     	Optional<User> user = webController.findById((int) id);
     	if (user == null || user.get().getId() <= 0){
            throw new UserException("User doesn´t exist");
@@ -43,7 +43,7 @@ public class UserController {
 	
 	 @RequestMapping(value = "/deleteByID/{id}", method = RequestMethod.GET)
 		public ResponseEntity<Optional<User>> removeById(@PathVariable("id") long id) throws UserException{
-	    	logger.info("ToDo id to remove " + id);
+	    	logger.info("Remove " + id);
 	    	Optional<User> user = webController.findById((int) id);
 	    	if (user == null || user.get().getId() <= 0){
 	            throw new UserException("User to delete doesn´t exist");
@@ -54,7 +54,7 @@ public class UserController {
 
 	 @RequestMapping(value = "/updateUser", method = RequestMethod.PATCH)
 	   	public ResponseEntity<User>  updateUser(@RequestBody User user) throws UserException{
-	    	logger.info("Payload to update " + user);
+	    	logger.info("User update " + user);
 	    	Optional<User> userUpdate = webController.findById(user.getId());
 	    	if (userUpdate == null || userUpdate.get().getId() <= 0){
 	            throw new UserException("User to update doesn´t exist");
